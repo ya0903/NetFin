@@ -2163,6 +2163,61 @@ div[data-role="controlgroup"] a.ui-btn-active {
   padding: .25em;
 }
 
+/* ── Jellyfin 12: React/MUI app bar replaces .skinHeader (#8) ── */
+.MuiAppBar-root .MuiButton-root,
+.MuiAppBar-root .MuiToolbar-root,
+.MuiMenu-paper .MuiMenuItem-root,
+.MuiMenu-paper .MuiListItemText-primary {
+  font-family: "Rajdhani", "Segoe UI", sans-serif;
+}
+
+/* Nav links → pill tabs (skip the logo/server-name link) */
+.MuiAppBar-root .MuiStack-root > a.MuiButton-root:not(.MuiButton-sizeLarge) {
+  margin: 0 .35em;
+  padding: .3em 1.1em;
+  color: var(--textColor);
+  font-weight: 500;
+  text-transform: none;
+  border-radius: var(--largeRadius);
+  background-color: rgba(0,0,0,.6);
+  transition: color .2s, background .2s;
+}
+
+.MuiAppBar-root .MuiStack-root > a.MuiButton-colorPrimary:not(.MuiButton-sizeLarge) {
+  color: white;
+  background-color: var(--activeColor);
+}
+
+.MuiAppBar-root .MuiStack-root > a.MuiButton-root:not(.MuiButton-sizeLarge, .MuiButton-colorPrimary):hover {
+  color: #ff4444;
+  background-color: rgba(204,0,0,.12);
+}
+
+.MuiAppBar-root .MuiAvatar-root {
+  color: white;
+  background-color: var(--activeColor);
+}
+
+/* User menu / popovers */
+.MuiMenu-paper,
+.MuiPopover-paper {
+  background-color: var(--drawerColor) !important;
+  backdrop-filter: var(--blurLarge);
+  border: var(--defaultBorder);
+  border-radius: var(--largeRadius) !important;
+}
+
+.MuiMenu-paper .MuiMenuItem-root:hover { background-color: rgba(204,0,0,.12); }
+.MuiMenu-paper .MuiDivider-root        { border-color: var(--borderColor); }
+
+/* Library toolbar "Play All" and other primary buttons */
+.MuiButton-containedPrimary {
+  color: white;
+  background-color: var(--btnSubmitColor);
+}
+
+.MuiButton-containedPrimary:hover { background-color: var(--activeColor); }
+
 .listItemImage {
   border-radius: var(--smallRadius);
   margin-right: .75em !important;
@@ -2906,7 +2961,9 @@ ul.MuiList-root.MuiMenu-list.MuiList-dense > div:first-child { gap: .5rem; }
 /* ────────────────────────────────────────────────────────────
    LOGIN PAGE
    ──────────────────────────────────────────────────────────── */
-.skinHeader.focuscontainer-x.skinHeader-withBackground.skinHeader-blurred.semiTransparent.noHomeButtonHeader {
+/* Scoped to the visible login page: the old class-combo selector also
+   matched detail pages opened from Home (#7) and hid the back button. */
+html:has(#loginPage:not(.hide)) .skinHeader {
   display: none;
 }
 
